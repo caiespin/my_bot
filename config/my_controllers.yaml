@@ -15,6 +15,12 @@ diff_cont:
     publish_rate: 50.0
 
     base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: true  
+    odometry:
+      topic: /odom 
+      frame_id: odom
+      child_frame_id: base_link
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
@@ -22,7 +28,7 @@ diff_cont:
     wheel_radius: 0.0325
 
     use_stamped_vel: false
-
+    
     # open_loop: false    
 
     # wheels_per_side: x
@@ -64,5 +70,5 @@ diff_cont:
 
 
 
-# joint_broad:
-#   ros__parameters:
+joint_broad:
+  ros__parameters: {}
