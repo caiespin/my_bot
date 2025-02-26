@@ -33,6 +33,12 @@ def generate_launch_description():
                 )])
     )
 
+    lidar = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(package_name),'launch','ld06lidar.launch.py'
+                )])
+    )
+
     robot_description = Command('ros2 param get --hide-type /robot_state_publisher robot_description')
 
 
@@ -81,6 +87,7 @@ def generate_launch_description():
     return LaunchDescription([
         rsp,
         joystick,
+        lidar,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner
