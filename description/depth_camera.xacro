@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- Mounting RealSense D435 to the chassis -->
     <joint name="camera_joint" type="fixed">
         <parent link="chassis"/>
         <child link="camera_link"/>
         <origin xyz="0.130 0 0.081" rpy="0 0 0"/>
     </joint>
 
+    <!-- Base Link of RealSense D435 -->
     <link name="camera_link">
         <visual>
             <geometry>
@@ -16,22 +18,27 @@
         </visual>
     </link>
 
-
-    <joint name="camera_optical_joint" type="fixed">
+    <!-- Depth Optical Frame -->
+    <joint name="camera_depth_optical_joint" type="fixed">
         <parent link="camera_link"/>
-        <child link="camera_link_optical"/>
+        <child link="camera_depth_optical_frame"/>
         <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
     </joint>
+    <link name="camera_depth_optical_frame"/>
 
-    <link name="camera_link_optical"></link>
+    <!-- Color Optical Frame -->
+    <joint name="camera_color_optical_joint" type="fixed">
+        <parent link="camera_link"/>
+        <child link="camera_color_frame"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    <link name="camera_color_frame"/>
 
-
-
+    <!-- Gazebo Simulation Settings -->
     <gazebo reference="camera_link">
         <material>Gazebo/Red</material>
-
-        <sensor name="camera" type="depth">
-            <pose> 0 0 0 0 0 0 </pose>
+        <sensor name="depth_camera" type="depth">
+            <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
             <update_rate>10</update_rate>
             <camera>
@@ -47,7 +54,7 @@
                 </clip>
             </camera>
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                <frame_name>camera_link_optical</frame_name>
+                <frame_name>camera_depth_optical_frame</frame_name>
                 <min_depth>0.1</min_depth>
                 <max_depth>100.0</max_depth>
             </plugin>
