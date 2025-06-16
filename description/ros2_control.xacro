@@ -28,6 +28,11 @@
          <state_interface name="position"/>
          <state_interface name="velocity"/>
       </joint>
+      <sensor name="imu_sensor" type="imu">
+         <plugin>ros2_control_imu/ImuSensor</plugin>
+         <param name="frame_id">imu_link</param>
+         <param name="topic">imu/data_raw</param>
+      </sensor>
    </ros2_control>
    <!-- <ros2_control name="GazeboSystem" type="system">
       <hardware>
